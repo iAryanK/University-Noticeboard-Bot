@@ -1,0 +1,1 @@
+{"root":["./types.d.ts","./src/index.ts","./src/utils.ts","./src/config/db.ts","./src/model/noticemodel.ts","./src/model/usermodel.ts"],"version":"5.7.2"}

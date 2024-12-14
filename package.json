@@ -1,0 +1,26 @@
+{
+  "name": "ptu_noticeboard",
+  "version": "1.0.0",
+  "description": "A telegram bot that scrapes the PTU noticeboard and sends the latest notices to the user.",
+  "main": "index.js",
+  "scripts": {
+    "build": "tsc -b",
+    "start": "node dist/index.js",
+    "dev": "npm run build && npm run start"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/node": "^22.10.2",
+    "typescript": "^5.7.2"
+  },
+  "dependencies": {
+    "axios": "^1.7.9",
+    "cheerio": "^1.0.0",
+    "dotenv": "^16.4.7",
+    "mongodb": "^6.12.0",
+    "mongoose": "^8.9.0",
+    "telegraf": "^4.16.3"
+  }
+}
