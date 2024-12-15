@@ -105,7 +105,7 @@ const fetchUpdates = async () => {
   }
 };
 
-setInterval(fetchUpdates, 1000 * 60 * 10); // poll every 10 minutes
+setInterval(fetchUpdates, 1000 * 60); // poll every 1 minute
 
 bot.launch();
 
