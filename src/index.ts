@@ -3,6 +3,10 @@ import "dotenv/config";
 import connectDb from "./config/db.js";
 import { User } from "./model/userModel.js";
 import { getNewNotices } from "./utils.js";
+import express from "express";
+const app = express();
+
+const port = process.env.PORT || 3000;
 
 const bot = new Telegraf(process.env.BOT_TOKEN!);
 
@@ -63,6 +67,14 @@ const fetchUpdates = async () => {
 setInterval(fetchUpdates, 1000 * 30); // poll every 10 minutes
 
 bot.launch();
+
+app.get("/", (req, res) => {
+  res.send("PTU NoticeBoard is active!");
+});
+
+app.listen(port, () => {
+  console.log(`App listening on port ${port}`);
+});
 
 // Enable graceful stop
 process.once("SIGINT", () => bot.stop("SIGINT"));
