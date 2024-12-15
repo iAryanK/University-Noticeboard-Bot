@@ -4,6 +4,7 @@ import connectDb from "./config/db.js";
 import { User } from "./model/userModel.js";
 import { getNewNotices } from "./utils.js";
 import express from "express";
+import { Notice } from "./model/noticeModel.js";
 const app = express();
 
 const port = process.env.PORT || 3000;
@@ -36,11 +37,51 @@ bot.start(async (ctx) => {
     );
 
     await ctx.reply(
-      `Hello ${from.first_name}! You will now receive realtime updates from PTU Noticeboard.`
+      `🤠 Hello ${from.first_name}! You will now receive realtime updates from PTU Noticeboard.`
     );
   } catch (error) {
     console.error("[START_ERROR]", error);
     ctx.reply("Error while saving user data");
+  }
+});
+
+bot.command("latest", async (ctx) => {
+  // fetch first notice from db
+  try {
+    const latest_notice = await Notice.findOne({
+      serialNumber: 1,
+    });
+
+    if (!latest_notice) {
+      return ctx.reply("No notices available at the moment.");
+    }
+
+    ctx.reply(
+      `📢 *New Notice | ${latest_notice.postedOn}* \n\n${latest_notice.title}\n\n🔗 ${latest_notice.downloadLink}`,
+      { parse_mode: "Markdown" }
+    );
+  } catch (error) {
+    console.log("[LATEST_NOTICE_ERROR]", error);
+  }
+});
+
+bot.command("latest5", async (ctx) => {
+  // fetch first 5 notices from db
+  try {
+    const latest_notices = await Notice.find().limit(5);
+
+    if (!latest_notices) {
+      return ctx.reply("No notices available at the moment.");
+    }
+
+    for (const notice of latest_notices) {
+      ctx.reply(
+        `📢 *New Notice | ${notice.postedOn}* \n\n${notice.title}\n\n🔗 ${notice.downloadLink}`,
+        { parse_mode: "Markdown" }
+      );
+    }
+  } catch (error) {
+    console.log("[LATEST_NOTICE_ERROR]", error);
   }
 });
 
@@ -64,7 +105,7 @@ const fetchUpdates = async () => {
   }
 };
 
-setInterval(fetchUpdates, 1000 * 30); // poll every 10 minutes
+setInterval(fetchUpdates, 1000 * 60 * 10); // poll every 10 minutes
 
 bot.launch();
 
