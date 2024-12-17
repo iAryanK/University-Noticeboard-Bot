@@ -1,7 +1,6 @@
 import * as cheerio from "cheerio";
 import axios from "axios";
-import { Notice } from "./model/noticeModel";
-import { NoticeType } from "../types";
+import { Notice } from "./model/noticeModel.js";
 
 export async function fetchNotices() {
   try {
@@ -9,7 +8,7 @@ export async function fetchNotices() {
 
     const $ = cheerio.load(data);
 
-    const notices: NoticeType[] = [];
+    const notices = [];
 
     // Extract notices
     $("#table1 tbody tr").each((index, element) => {
@@ -26,7 +25,7 @@ export async function fetchNotices() {
     });
 
     return notices;
-  } catch (error: any) {
+  } catch (error) {
     console.error("[FETCH_NOTICES_ERROR]", error.message);
     return [];
   }

@@ -3,10 +3,9 @@
   "version": "1.0.0",
   "description": "A telegram bot that scrapes the PTU noticeboard and sends the latest notices to the user.",
   "main": "index.js",
+  "type": "module",
   "scripts": {
-    "build": "tsc -b",
-    "start": "node dist/index.js",
-    "dev": "npm run build && npm run start"
+    "start": "node api/index.js"
   },
   "keywords": [],
   "author": "",
