@@ -3,3 +3,4 @@
 notices.json
 /dist
 .vercel
+.netlify

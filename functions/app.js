@@ -1,11 +1,13 @@
+import express from "express";
+const serverless = require('serverless-http');
 import { Telegraf } from "telegraf";
 import "dotenv/config";
 import connectDb from "./config/db.js";
 import { User } from "./model/userModel.js";
 import { getNewNotices } from "./utils.js";
-import express from "express";
 import { Notice } from "./model/noticeModel.js";
 const app = express();
+const router = express.Router();
 
 const port = process.env.PORT || 3000;
 
@@ -113,9 +115,8 @@ app.get("/", (req, res) => {
   res.send("PTU NoticeBoard is active!");
 });
 
-app.listen(port, () => {
-  console.log(`App listening on port ${port}`);
-});
+app.use('/.netlify/functions/api', router);
+module.exports.handler = serverless(app);
 
 // Enable graceful stop
 process.once("SIGINT", () => bot.stop("SIGINT"));
