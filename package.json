@@ -2,10 +2,10 @@
   "name": "ptu_noticeboard",
   "version": "1.0.0",
   "description": "A telegram bot that scrapes the PTU noticeboard and sends the latest notices to the user.",
-  "main": "index.js",
+  "main": "app.js",
   "type": "module",
   "scripts": {
-    "start": "node api/index.js",
+    "start": "node api/app.js",
     "build": "netlify deploy --prod"
   },
   "keywords": [],
